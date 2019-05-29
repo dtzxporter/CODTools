@@ -1,0 +1,31 @@
+// CODTools Menu
+
+global proc exportXModel()
+{
+    string $singleFilter = "CoD XMODEL_EXPORT (*.XMODEL_EXPORT)";
+    string $result[] = `fileDialog2 -fileFilter $singleFilter -dialogStyle 2`;
+    if (size($result) > 0)
+    {
+        file -force -options "" -type "CoD XMODEL_EXPORT" -pr -ea $result[0];
+    }
+}
+
+global proc exportXAnim()
+{
+    string $singleFilter = "CoD XANIM_EXPORT (*.XANIM_EXPORT)";
+    string $result[] = `fileDialog2 -fileFilter $singleFilter -dialogStyle 2`;
+    if (size($result) > 0)
+    {
+        file -force -options "" -type "CoD XANIM_EXPORT" -pr -ea $result[0];
+    }
+}
+
+global proc codToolsAbout()
+{
+    
+}
+
+setParent $gMainWindow;
+menu -label "COD Tools" -tearOff true "CODTools";
+menuItem -label "Export XModel" -command "exportXModel";
+menuItem -label "Export XAnim" -command "exportXAnim";

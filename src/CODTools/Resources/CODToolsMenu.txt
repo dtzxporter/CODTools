@@ -1,0 +1,145 @@
+// CODTools Menu
+
+global proc exportXModel()
+{
+    string $singleFilter = "CoD XMODEL_EXPORT (*.XMODEL_EXPORT);;CoD XMODEL_BIN (*.XMODEL_BIN)";
+    string $result[] = `fileDialog2 -fileFilter $singleFilter -dialogStyle 2`;
+    if (size($result) > 0)
+    {
+        if (endsWith($result[0], ".XMODEL_EXPORT"))
+		{
+			file -force -options "" -type "CoD XMODEL_EXPORT" -pr -ea $result[0];
+		}
+		else
+		{
+			file -force -options "" -type "CoD XMODEL_BIN" -pr -ea $result[0];
+		}
+    }
+}
+
+global proc exportXAnim()
+{
+    string $singleFilter = "CoD XANIM_EXPORT (*.XANIM_EXPORT);;CoD XANIM_BIN (*.XANIM_BIN)";
+    string $result[] = `fileDialog2 -fileFilter $singleFilter -dialogStyle 2`;
+    if (size($result) > 0)
+    {
+		if (endsWith($result[0], ".XANIM_EXPORT"))
+		{
+			file -force -options "" -type "CoD XANIM_EXPORT" -pr -ea $result[0];
+		}
+		else
+		{
+			file -force -options "" -type "CoD XANIM_BIN" -pr -ea $result[0];
+		}
+    }
+}
+
+global proc codToolsAbout()
+{
+    confirmDialog -title "About CODTools" -message "A simple and powerful exporter for Call of Duty assets.\n\n- Developed by DTZxPorter\n- Version 1.0.0" -button "OK";
+}
+
+global proc int xanimExportOptions(string $parent, string $action, string $settings, string $callback)
+{
+	global string $grab_notes;
+
+	if ($action == "post")
+	{
+		setParent $parent;
+		$grab_notes = `checkBox
+			-l "Grab Existing SENotes"
+			-align "left"
+			-v true
+			-w 150`;
+
+		string $options[];
+		int $ntokens = `tokenize $settings ";" $options`;
+		for ($i = 0; $i < $ntokens; $i++)
+		{
+			string $option[];
+			int $nparts = `tokenize $options[$i] "=" $option`;
+			if ($nparts < 2)
+				continue;
+
+			if ($option[0] == "grabnotes")
+			{
+				if ($option[1] == "0")
+					checkBox -e -v 0 $grab_notes;
+			}
+		}
+	}
+	else if ($action = "query")
+	{
+		string $option = "grabnotes=";
+
+		if (`checkBox -query -value $grab_notes` == 1)
+			$option += "1;";
+		else
+			$option += "0;";
+
+		eval ($callback + "\"" + $option + "\"");
+	}
+
+	return 1;
+}
+
+global proc int xmodelExportOptions(string $parent, string $action, string $settings, string $callback)
+{
+	global string $export_siege, $cosmetic_root;
+
+	if ($action == "post")
+	{
+		setParent $parent;
+		$export_siege = `checkBox
+			-l "Export Siege Model"
+			-align "left"
+			-v false
+			-w 150`;
+		
+		rowColumnLayout -numberOfColumns 2 -columnAttach 1 "left" 0 -columnWidth 1 80 -columnWidth 2 250;
+		text -label "Cosmetic Root:";
+		$cosmetic_root = `textField
+			-w 150
+			-tx ""`;			
+
+		string $options[];
+		int $ntokens = `tokenize $settings ";" $options`;
+		for ($i = 0; $i < $ntokens; $i++)
+		{
+			string $option[];
+			int $nparts = `tokenize $options[$i] "=" $option`;
+			if ($nparts < 2)
+				continue;
+
+			if ($option[0] == "exportsiege")
+			{
+				if ($option[1] == "1")
+					checkBox -e -v 1 $export_siege;
+			}
+			else if ($option[0] == "cosmeticroot")
+				textField -e -tx $option[1] $cosmetic_root;
+		}
+	}
+	else if ($action == "query")
+	{
+		string $option = "exportsiege=";
+
+		if (`checkBox -query -value $export_siege` == 1)
+			$option += "1;";
+		else
+			$option += "0;";
+
+		$option += "cosmeticroot=" + `textField -q -tx $cosmetic_root`;
+
+		eval ($callback + "\"" + $option + "\"");
+	}
+
+	return 1;
+}
+
+setParent $gMainWindow;
+menu -label "COD Tools" -tearOff true "CODTools";
+menuItem -label "Export XAnim" -command "exportXAnim";
+menuItem -label "Export XModel" -command "exportXModel";
+menuItem -divider true;
+menuItem -label "About" -command "codToolsAbout";

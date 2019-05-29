@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CODTools", "CODTools\CODTools.csproj", "{ECA8C476-5C0B-4CB1-A857-9813F3B1CE4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Debugger", "Debugger\Debugger.csproj", "{F4571CA3-F4A5-45F5-88A2-5CFF78F3CA4A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ECA8C476-5C0B-4CB1-A857-9813F3B1CE4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECA8C476-5C0B-4CB1-A857-9813F3B1CE4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECA8C476-5C0B-4CB1-A857-9813F3B1CE4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECA8C476-5C0B-4CB1-A857-9813F3B1CE4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4571CA3-F4A5-45F5-88A2-5CFF78F3CA4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4571CA3-F4A5-45F5-88A2-5CFF78F3CA4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4571CA3-F4A5-45F5-88A2-5CFF78F3CA4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4571CA3-F4A5-45F5-88A2-5CFF78F3CA4A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
